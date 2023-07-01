@@ -15,5 +15,5 @@ export type ProductType = {
 
 export type RootStackParamList = {
     ProductList: undefined, // undefined because you aren't passing any params to the home screen
-    ProductDetails: { id: number },
+    ProductDetails: { product: ProductType },
   };

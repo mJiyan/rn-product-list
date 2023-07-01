@@ -7,7 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList, SCREENS } from '../../shared';
 import { SearchBar, SearchList } from '../../modules';
-import { useLoadProducts } from './hooks/useLoadProducts';
+import { useLoadProducts } from './hooks';
 
 export type ProductListNavigationProp = StackNavigationProp<
   RootStackParamList,

@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { SCREENS, ProductType } from '../../../../shared';
 import { ProductListNavigationProp } from "../../../../screens/product-list/ProductListScreen";
@@ -10,7 +10,7 @@ const ProductListItem = ({ product, navigation }: { product: ProductType, naviga
     // })}>
     //   {title}
     // </Text>
-    <View
+    <TouchableOpacity
       style={{
         backgroundColor: '#fff',
         marginTop: 10,
@@ -18,8 +18,9 @@ const ProductListItem = ({ product, navigation }: { product: ProductType, naviga
         borderBottomWidth: 1,
         paddingVertical: 10,
       }}
-
-    >
+      onPress={() => navigation.navigate(SCREENS.PRODUCT_DETAILS, {
+        product
+      })}>
       <View style={{ flexDirection: 'row' }}>
         {/* Product Image View */}
         <View style={{ flex: 1, paddingHorizontal: 8 }}>
@@ -90,7 +91,7 @@ const ProductListItem = ({ product, navigation }: { product: ProductType, naviga
         }}
       >
       </View>
-    </View>
+    </TouchableOpacity>
 
   )
 }

@@ -1,23 +1,15 @@
-import { View, Text } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { RootStackParamList, SCREENS } from '../../shared';
+import { ProductType } from '../../shared';
+import { ProductDetails } from '../../modules';
 
 interface ProductDetailsProps {
-    navigation?: StackNavigationProp<
-        RootStackParamList,
-        SCREENS.PRODUCT_DETAILS
-    >,
-    route?: RouteProp<{ params: { id: number } }, 'params'>
+    route?: RouteProp<{ params: { product: ProductType } }, 'params'>
 }
 
-const ProductDetailsScreen = ({ navigation, route }: ProductDetailsProps) => {
-    return (
-        <View>
-            <Text>ProductDetails: {route?.params.id}</Text>
-        </View>
-    )
+const ProductDetailsScreen = ({ route }: ProductDetailsProps) => {
+    const product = route?.params.product;
+    return product ? <ProductDetails product={product} /> : null
 }
 
 export default ProductDetailsScreen;
