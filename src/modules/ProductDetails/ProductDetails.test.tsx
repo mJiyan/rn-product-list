@@ -12,6 +12,6 @@ const setUp = ({ product }: { product: ProductType}) => render(<ProductDetails p
 describe(ProductDetails.name, () => {
     it("should render module as expected", async () => {
         setUp({ product: PRODUCT_MOCK })
-        expect(screen.getByText("description: Slim-fitting style, contrast.")).toBeInTheDocument()
+        expect(screen.getByText("Slim-fitting style, contrast.")).toBeInTheDocument()
     })
 })

@@ -1,8 +1,9 @@
-import { ActivityIndicator, FlatList, RefreshControl, View } from "react-native";
+import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
 
 import { searchListRenderItem } from "./utils";
 import { ProductType, Maybe } from "../../shared";
 import { ProductListNavigationProp } from "../../screens/product-list/ProductListScreen";
+import { Box } from "../../ui-library"
 
 export type SearchListProps = {
   searchPhrase: string, 
@@ -21,7 +22,7 @@ const SearchList = ({
     refreshing,
     onRefresh,
   }: SearchListProps) => (
-      <View>
+      <Box>
         {refreshing ? <ActivityIndicator data-testid={ACTIVITY_INDICATOR_TESTID} /> : null}
         <FlatList
           data={productList}
@@ -34,7 +35,7 @@ const SearchList = ({
             />
           }    
         />
-    </View>
+    </Box>
   )
 
 

@@ -11,6 +11,6 @@ const setUp = ({ route }: ProductDetailsProps) => render(<ProductDetailsScreen r
 describe(ProductDetailsScreen.name, () => {
     it("should render module as expected", async () => {
         setUp({ route: { params: { product: PRODUCT_MOCK}, key: "", name: "params" } })
-        expect(screen.getByText("description: Slim-fitting style, contrast.")).toBeInTheDocument()
+        expect(screen.getByText("Slim-fitting style, contrast.")).toBeInTheDocument()
     })
 })
