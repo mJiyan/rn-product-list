@@ -3,7 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { ProductType } from '../../shared';
 import { ProductDetails } from '../../modules';
 
-interface ProductDetailsProps {
+export type ProductDetailsProps = {
     route?: RouteProp<{ params: { product: ProductType } }, 'params'>
 }
 

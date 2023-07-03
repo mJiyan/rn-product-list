@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   SafeAreaView,
   View,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackParamList, SCREENS } from '../../shared';
+import { RootStackParamList, SCREENS, Maybe } from '../../shared';
 import { SearchBar, SearchList } from '../../modules';
 import { useLoadProducts } from './hooks';
+import { BoxWithShadow, Box } from '../../ui-library';
 
 export type ProductListNavigationProp = StackNavigationProp<
   RootStackParamList,
   SCREENS.PRODUCT_LIST
 >;
 
-const ProductListScreen = ({ navigation }: {navigation: ProductListNavigationProp}): JSX.Element => {
+const ProductListScreen = ({ navigation }: { navigation: Maybe<ProductListNavigationProp>}): JSX.Element => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const {
     productList,
@@ -24,19 +25,21 @@ const ProductListScreen = ({ navigation }: {navigation: ProductListNavigationPro
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <SearchBar
-        searchPhrase={searchPhrase}
-        setSearchPhrase={setSearchPhrase}
-      />
-      <View>
-        <SearchList 
+      <BoxWithShadow justifyContent={'space-around'} height={50} p={20}>
+        <SearchBar
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+        />
+      </BoxWithShadow>
+      <Box>
+        <SearchList
           searchPhrase={searchPhrase}
           productList={productList}
           navigation={navigation}
           refreshing={refreshing}
           onRefresh={onRefresh}
         />
-      </View>
+      </Box>
     </SafeAreaView>
   );
 }

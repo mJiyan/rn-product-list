@@ -1,8 +1,18 @@
 import { ActivityIndicator, FlatList, RefreshControl, View } from "react-native";
 
-import { ProductListItem } from "./components";
+import { searchListRenderItem } from "./utils";
 import { ProductType, Maybe } from "../../shared";
 import { ProductListNavigationProp } from "../../screens/product-list/ProductListScreen";
+
+export type SearchListProps = {
+  searchPhrase: string, 
+  productList: Maybe<ProductType[]>, 
+  navigation:Maybe<ProductListNavigationProp>,
+  refreshing: boolean,
+  onRefresh: () => void
+}
+
+export const ACTIVITY_INDICATOR_TESTID = "ACTIVITY_TESTID"
 
 const SearchList = ({ 
     searchPhrase, 
@@ -10,38 +20,22 @@ const SearchList = ({
     navigation,
     refreshing,
     onRefresh,
-  }: { 
-    searchPhrase: string, 
-    productList: Maybe<ProductType[]>, 
-    navigation: ProductListNavigationProp,
-    refreshing: boolean,
-    onRefresh: () => void
-  }) => {
-    const renderItem = ({ item }: { item: ProductType }) => {
-        if (searchPhrase === "") {
-          return <ProductListItem product={item} navigation={navigation} />;
-        }
-        if (item.title.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-          return <ProductListItem product={item} navigation={navigation} />;
-        }
-        return <></>
-      };
-    return (
-        <View>
-          {refreshing ? <ActivityIndicator /> : null}
-          <FlatList
-            data={productList}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={renderItem}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-              />
-            }    
-          />
-      </View>
-    )
-}
+  }: SearchListProps) => (
+      <View>
+        {refreshing ? <ActivityIndicator data-testid={ACTIVITY_INDICATOR_TESTID} /> : null}
+        <FlatList
+          data={productList}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => searchListRenderItem({ item, navigation, searchPhrase })}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }    
+        />
+    </View>
+  )
+
 
 export default SearchList;

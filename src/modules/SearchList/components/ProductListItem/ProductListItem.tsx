@@ -1,96 +1,61 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 
-import { SCREENS, ProductType } from '../../../../shared';
-import { ProductListNavigationProp } from "../../../../screens/product-list/ProductListScreen";
+import { SCREENS } from '../../../../shared';
+import { SearchListRenderItemProps } from "../../utils";
+import { BoxWithShadow, Box, ImageBox, Text } from "../../../../ui-library"
 
-const ProductListItem = ({ product, navigation }: { product: ProductType, navigation: ProductListNavigationProp }) => {
+export type ProductListItemProps = Pick<SearchListRenderItemProps, "item" | "navigation"> 
+
+const ProductListItem = ({ item, navigation }: ProductListItemProps) => {
   return (
-    // <Text key={id} onPress={() => navigation.navigate(SCREENS.PRODUCT_DETAILS, {
-    //   id: id
-    // })}>
-    //   {title}
-    // </Text>
     <TouchableOpacity
       style={{
-        backgroundColor: '#fff',
         marginTop: 10,
-        borderBottomColor: '#dfe4ea',
-        borderBottomWidth: 1,
-        paddingVertical: 10,
       }}
-      onPress={() => navigation.navigate(SCREENS.PRODUCT_DETAILS, {
-        product
+      onPress={() => navigation?.navigate(SCREENS.PRODUCT_DETAILS, {
+        product: item
       })}>
-      <View style={{ flexDirection: 'row' }}>
-        {/* Product Image View */}
-        <View style={{ flex: 1, paddingHorizontal: 8 }}>
-          <Image
-            style={{ width: 100, height: 100, resizeMode: 'center' }}
-            source={{ uri: product.image }}
-          />
-        </View>
-        {/* Product Details View */}
-        <View style={{ flex: 3 }}>
-          {/* -- Ratings View */}
-          <View>
-            <Text style={{ fontFamily: 'SSRegular' }}>{product.title}</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  backgroundColor: '#fff200',
-                  alignItems: 'center',
-                  paddingHorizontal: 4,
-                  paddingVertical: 2,
-                  borderRadius: 4,
-                  marginTop: 4,
-                }}
-              >
-                <Text
-                  style={{
-                    color: '#111',
-                    marginRight: 8,
-                    fontFamily: 'SSBold',
-                    fontSize: 16,
-                  }}
+      <BoxWithShadow p={2}>
+        <Box flexDirection="row">
+          <Box px={2} flex={1}>
+            <ImageBox
+              style={{ width: 100, height: 100, resizeMode: 'center' }}
+              source={{ uri: item.image }}
+            />
+          </Box>
+          <Box flex={3} pl={3}>
+            <Box>
+              <Text>{item.title}</Text>
+              <Box flexDirection="row" alignItems="center">
+                <Box
+                  flexDirection='row'
+                  backgroundColor='#fff200'
+                  alignItems='center'
+                  px={1}
+                  py={1}
+                  mt={1}
+                  borderRadius={4}
                 >
-                  {product.rating.rate}
+                  <Text
+                    color="#111"
+                    fontSize={12}
+                  >
+                    {item.rating.rate}
+                  </Text>
+                </Box>
+                <Text ml={2}>
+                  ({item.rating.count})
                 </Text>
-              </View>
-              <Text style={{ marginLeft: 6, fontFamily: 'SSRegular' }}>
-                ({product.rating.count})
+              </Box>
+            </Box>
+            <Box mt={2}>
+              <Text fontSize={16}>
+                {`$${item.price}  `}
               </Text>
-            </View>
-          </View>
-          {/* -- Price View */}
-          <View style={{ marginTop: 4 }}>
-            <Text style={{ fontFamily: 'SSBold', fontSize: 16 }}>
-              {`$${product.price}  `}
-            </Text>
-          </View>
-        </View>
-      </View>
-      {/* Offer View */}
-      <View
-        style={{
-          paddingHorizontal: 8,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-      
-      </View>
-      {/* Specifications Wrap */}
-      <View
-        style={{
-          marginTop: 4,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-        }}
-      >
-      </View>
+            </Box>
+          </Box>
+        </Box>
+      </BoxWithShadow>
     </TouchableOpacity>
 
   )
